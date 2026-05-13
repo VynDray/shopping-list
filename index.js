@@ -3,11 +3,13 @@ let quantityInput=document.querySelector('.input2')
 let priceInput = document.querySelector('.input3')
 let addButton = document.querySelector('.addBTN')
 let arrayDataContainer= document.querySelector('.arrayDATA')
+let uiPrice = document.querySelector('.UIprice')
 const arry =[];
 
 function checkInputs(){
     if(detailInput.value===''||quantityInput.value===''||priceInput.value===''){
         alert('one of the inputs is empty, fill all inputs')
+        resetInput()
         return
     }else{
         console.log('working')
@@ -39,11 +41,12 @@ function runAlgorithm(){
      pushIntoARRY(values)
      itterate(arry)
      arrayDataContainer.innerHTML = itterate(arry)
-     console.log(arrayDataContainer)
+     
 
     }else{
         return
     }
+    resetInput()
 }
 
 function pushIntoARRY(data){
@@ -54,12 +57,13 @@ function pushIntoARRY(data){
         let accumulator = ''
         for(let i=0;i<array.length;i++){
             /* accumulator+=array[i] */
-            accumulator+=`<div>
+            accumulator+=`<div class='UiSlide'>
              <div>${array[i].details}</div>
              <div>${array[i].quantity}</div>
              <div>${array[i].price}</div>
              <button
-             onclick='arry.splice(${i},1);arrayDataContainer.innerHTML = itterate(arry);'
+             onclick='arry.splice(${i},1);arrayDataContainer.innerHTML = itterate(arry); updateFinalPrice();'
+             class='deleteBTN'
              >Delete</button>
             </div>`
         }
@@ -68,7 +72,22 @@ function pushIntoARRY(data){
         console.log('itteration successfull')
         return accumulator
     }
+    function resetInput(){
+        detailInput.value=''
+        quantityInput.value=''
+        priceInput.value=''
+    }
+    function updateFinalPrice(){
+        let totalPrice=0;
+        for(let i =0;i<arry.length;i++){
+            totalPrice+=arry[i].price
+        }
+        uiPrice.innerHTML=totalPrice
+        console.log(totalPrice)
+
+    } 
 
 addButton.addEventListener('click',()=>{
     runAlgorithm()
+    updateFinalPrice()
 })
