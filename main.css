@@ -1,0 +1,66 @@
+:root {
+  --font-heading: 'Syne', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+  --font-body:    'Outfit', sans-serif;
+  --color:#FBC107;
+  --bgColor:#122F57;
+}
+
+*{
+    font-family: var(--font-heading);
+}
+body{
+    height: 100vh;
+    overflow: hidden;
+}
+img{
+    max-width: 100%;
+    display: block;
+}
+.header{
+    display: flex;
+    align-items: center;
+    background-color:var(--bgColor);
+    color: var(--color);
+    justify-content: space-between;
+
+    
+}
+.logo{
+    width: 50px;
+    height: 50px;
+}
+
+.detail-input{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    background-color: var(--bgColor);
+    color: var(--color);
+    width: 100%;
+    padding: 20px 5px;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 300px 50px 200px 100px;
+}
+.data-container{
+    border: 2px solid red;
+    height: 70vh;
+    overflow-y: auto;
+}
+.total-price-container{
+    display: flex;
+    justify-content: flex-end;
+}
+.input{
+    width: 100%;
+    height: 50px;
+    font-size: 1.2rem;
+    padding: 0 5px;
+}
+.input:focus{
+ outline: none;
+}
+.input1{
+    
+}
