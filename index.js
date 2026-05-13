@@ -17,7 +17,6 @@ function checkInputs(){
 }
  function checkPrice(){
     let priceVlue = Number(priceInput.value)
-            console.log(priceVlue)
             if(!priceVlue){
                 priceVlue=''
                 priceInput.value=''
@@ -51,7 +50,6 @@ function runAlgorithm(){
 
 function pushIntoARRY(data){
        arry.push(data)
-       console.log(arry)
     }
     function itterate(array){
         let accumulator = ''
@@ -67,9 +65,6 @@ function pushIntoARRY(data){
              >Delete</button>
             </div>`
         }
-        console.log(accumulator)
-
-        console.log('itteration successfull')
         return accumulator
     }
     function resetInput(){
@@ -83,7 +78,6 @@ function pushIntoARRY(data){
             totalPrice+=arry[i].price
         }
         uiPrice.innerHTML=totalPrice
-        console.log(totalPrice)
 
     } 
 
