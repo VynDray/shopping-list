@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Site Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #080808;
+    --card: #101010;
+    --border: #1e1e1e;
+    --accent: #c8f45a;
+    --text: #e0e0e0;
+    --muted: #555;
+    --green: #5af4a0;
+    --blue: #5ab4f4;
+    --orange: #f4a85a;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; padding: 2rem 1rem; min-height: 100vh; }
+  .wrapper { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); font-weight: 800; letter-spacing: -0.03em; }
+  .subtitle { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); margin-bottom: 2rem; margin-top: 0.3rem; }
+
+  .top-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-bottom: 1.5rem; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+  .stat-card .label { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+  .stat-card .value { font-family: 'Space Mono', monospace; font-size: 1.5rem; font-weight: 700; color: var(--accent); }
+
+  .section { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem; margin-bottom: 1rem; }
+  .section-title { font-family: 'Space Mono', monospace; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 1rem; }
+
+  .visitor-list { display: flex; flex-direction: column; gap: 0.6rem; max-height: 320px; overflow-y: auto; }
+  .visitor-row {
+    background: #0d0d0d;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1rem;
+  }
+  .v-item { font-family: 'Space Mono', monospace; font-size: 0.68rem; }
+  .v-item .k { color: var(--muted); }
+  .v-item .v { color: var(--text); }
+  .v-item.full { grid-column: 1 / -1; }
+
+  .bar-row { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.5rem; }
+  .bar-label { font-family: 'Space Mono', monospace; font-size: 0.65rem; width: 100px; color: var(--text); flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar-track { flex: 1; background: #1a1a1a; border-radius: 4px; height: 6px; }
+  .bar-fill { height: 100%; border-radius: 4px; background: var(--accent); transition: width 0.6s ease; }
+  .bar-count { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--muted); width: 20px; text-align: right; flex-shrink: 0; }
+
+  .btn { font-family: 'Space Mono', monospace; font-size: 0.7rem; font-weight: 700; padding: 0.5rem 1rem; border-radius: 6px; border: none; cursor: pointer; letter-spacing: 0.05em; }
+  .btn-clear { background: #1a0000; color: #f45a5a; border: 1px solid #3a0000; }
+  .btn-clear:hover { background: #2a0000; }
+
+  .empty { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--muted); text-align: center; padding: 2rem; }
+
+  /* scrollbar */
+  .visitor-list::-webkit-scrollbar { width: 4px; }
+  .visitor-list::-webkit-scrollbar-track { background: transparent; }
+  .visitor-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <h1>Analytics</h1>
+  <p class="subtitle">&COPY;marvyncode6@gmail.com </p>
+
+  <div class="top-stats">
+    <div class="stat-card">
+      <div class="label">Total Visits</div>
+      <div class="value" id="total-visits">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Unique Devices</div>
+      <div class="value" id="unique-devices">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Countries</div>
+      <div class="value" id="total-countries">0</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Countries</div>
+    <div id="country-bars"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Device Types</div>
+    <div id="device-bars"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Browsers</div>
+    <div id="browser-bars"></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">Recent Visitors</div>
+    <div class="visitor-list" id="visitor-list"></div>
+  </div>
+
+  <div style="margin-top:1rem">
+    <button class="btn btn-clear" onclick="clearData()">CLEAR ALL DATA</button>
+  </div>
+</div>
+
+<script src="analytics.js"></script>
+<script type="module">
+  import { renderDashboard, clearData } from './analytics.js';
+  renderDashboard();
+  window.clearData = clearData; // needed so onclick="clearData()" works
+</script>
+</body>
+</html>

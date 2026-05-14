@@ -44,7 +44,7 @@
             <input type="text" placeholder="Enter details" class="input input1">
         </div>
         <div class="number">
-              <input type="number" list="num-options" min="1" placeholder="Enter a number" class="input input2">
+              <input type="number" list="num-options" min="1" placeholder="22" class="input input2">
                 <datalist id="num-options">
                     <option value="1">
                     <option value="2">
@@ -59,7 +59,7 @@
                 </datalist>
         </div>
         <div class="price">
-            <input type="text" class="input input3">
+            <input type="text" class="input input3" placeholder="unit cost 20,000">
         </div>
         <button class="addBTN">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-square-fill" viewBox="0 0 16 16">
@@ -67,7 +67,10 @@
             </svg>
         </button>
     </div>
-
+<script type="module">
+  import { trackVisit } from './analytics.js';
+  trackVisit();
+</script>
   <script src="index.js"></script>  
 </body>
 </html>
