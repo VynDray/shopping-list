@@ -21,7 +21,7 @@ body {
   background-color: var(--bgDark);
   color: var(--text);
   font-family: var(--font-heading);
-  height: 90vh;
+  height: 100vh;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -243,6 +243,9 @@ img { max-width: 100%; display: block; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
+  body {
+  height: 91vh;
+}
   .detail-input {
     grid-template-columns: 1fr 55px 100px 44px;
     gap: 6px;
@@ -255,6 +258,9 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 400px) {
+    body {
+  height: 91vh;
+}
   .detail-input { grid-template-columns: 1fr 48px 90px 40px; }
   .input { height: 42px; font-size: 0.82rem; }
   .addBTN { width: 40px; height: 42px; }
