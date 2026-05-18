@@ -242,10 +242,40 @@ window.addEventListener('keydown', (e) => {
 // ── INIT ──
 arrayDataContainer.innerHTML = itterate(arry)
 checkEmptyState()
-updateFinalPrice()
+updateFinalPrice() 
 
-/* 
-now thats the website, wat i want you to update is when there is nothing in the list, display a message 'Your list is empty',make the searchbar interactive that when someone searches for the detail value lets say he has 'apple' in the list, they can search and only items that contain apple(the whole div) will now display, when the search bar is empty all the list come back, now you notice that when lets say the values are empty, i designed an alert, change this to custom popups explaining why, dont change my core logic, build on top of it, now i know you will want to ADD some html say for the popup, you can do that but like i said build on top of wat is already there, dont change thins also make the serchbar that when i enter a word NkookaVyn(whather capital or small laters), a popup apears asking for a password, when i enter 'Coolhands.co', it will link to track.html, All pops must have a close button
+const uiStatusDispaly= document.querySelector('.statusCheck')
 
+function toggelOnine(param='offline'){
+  uiStatusDispaly.style.display ='inline-block'
+    setTimeout(() => {
+      uiStatusDispaly.style.display ='none'
+    }, 1500);
+  if(param==='offline'){
+    uiStatusDispaly.querySelector('p').textContent='offine'
+    uiStatusDispaly.classList.add('is-offline')
+    setTimeout(()=>{
+      uiStatusDispaly.classList.remove('is-offline')
+    },1000)
+  }else{
+    uiStatusDispaly.style.cssText = `
+    background-color: black;
+    color: white;
+    display:inline-block;
+    border:1px solid black;
+  `;
+  uiStatusDispaly.querySelector('p').textContent='welcome back'
+  }
 
-*/
+}
+
+function checkstatus(){
+  if(navigator.onLine){
+    toggelOnine('online')
+  }else {
+    toggelOnine('offline')
+  }
+}
+checkstatus()
+window.addEventListener('online',checkstatus)
+window.addEventListener('offline',checkstatus)
